@@ -1,0 +1,106 @@
+0.gombra az összes led világít
+1.gombra kiteszi a 105öt (100*100+5)
+
+
+.include "m128def.inc"
+
+.def a=r16
+.def b=r17
+.def c=r18
+.def d=r19
+.def e=r20
+
+
+
+
+.macro stack_init
+ldi 	a,	high(ramend)
+out 	sph,	a
+ldi 	a,	low(ramend)
+out 	spl,	a
+.endmacro
+
+.macro port_init
+ldi 	a,	0
+sts 	DDRG,	a
+ldi 	a,	0xF0
+out 	DDRD,	a
+out 	DDRB,	a
+.endmacro
+
+.org 0x00
+rjmp start
+.org 0x100
+
+start:
+stack_init
+port_init
+eor	a,	a
+lds	a,	PING     ///portról adatot eltárolni LDS-sel
+cpi	a,	1
+breq	g0
+cpi	a,	2
+breq	g1
+main:
+call	kitesz
+rjmp	start
+
+g0:
+ldi a,255
+rjmp main
+
+g1:
+ldi b,10
+ldi c,5
+mul b,b
+mov a,r0
+add a,c
+rjmp main
+
+
+
+
+kitesz:
+out	PORTD,	a
+swap	a
+out	PORTB,	a
+swap	a
+ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

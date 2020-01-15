@@ -1,0 +1,122 @@
+.include "m128def.inc"
+
+.def a=r16
+.def b=r17 
+.def c=r18
+.def d=r19
+.def e=r20
+.def f=r12
+
+.macro stack_init
+ldi a,	HIGH(RAMEND)
+out sph,a
+ldi a,	LOW(RAMEND)
+out spl,a
+.endmacro
+
+.macro port_init
+ldi a,0
+sts DDRG,a
+ldi a,	0xF0
+out	DDRD,a
+out DDRB,a
+.endmacro
+
+
+.macro led_out
+out	PORTD,e
+swap e
+out PORTB,e
+swap e
+.endmacro
+
+.macro delay
+ldi b,255
+ldi c,255
+ldi d,255
+d0:
+dec 	b
+brne	d0
+d1:
+dec 	c
+brne	d1
+d2:
+dec 	d
+brne	d0
+.endmacro
+
+
+
+
+
+
+.org 0x00
+rjmp start
+.org 0x100
+
+start:
+		//led_out
+		port_init
+		stack_init
+		
+
+lds a,ping
+cpi a,1
+breq g0
+cpi a,2
+breq g1
+cpi a,4
+breq g2
+cpi a,8
+breq g3
+rjmp start
+
+
+g0:
+ldi e,92
+led_out
+//ldi e,0
+
+rjmp start
+
+g1:
+ldi e,0b10101010
+led_out
+rjmp start
+
+
+
+g2:
+ldi e,1
+leptet:
+
+led_out
+delay
+rol e
+delay
+led_out
+rjmp leptet
+
+
+
+
+g3:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

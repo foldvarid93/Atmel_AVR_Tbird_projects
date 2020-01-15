@@ -1,0 +1,121 @@
+.include "m128def.inc"
+.org 0x00
+
+.def a=r16
+.def b=r17
+.def c=r18
+.def d=r19
+.def e=r20
+/// stack létrehozása-->KI kell jelölni a tetejét és alját mivel memórai terület
+.macro STACK
+ldi	a,		high(ramend)
+out	sph,	a    
+ldi a,		low(ramend)
+out spl,	a
+.endmacro
+
+
+
+
+
+
+rjmp start
+
+.org 0x100
+
+
+
+start:
+STACK
+
+ldi b,27
+ldi c,8
+matek:
+sub b,c
+breq vege
+brmi marad
+rjmp matek
+
+ vege:
+ marad:
+ add b,c
+ rjmp start
+
+
+
+
+
+
+
+
+
+//////////////////////////////////
+STACK
+//addig vonja ki a c-t b-bõl amíg nem lesz egyenlõ b-vel,ha egyenlõ akk kilép
+ldi b,27
+ldi c,9
+//matek:
+sub b,c
+breq vege
+rjmp matek
+
+ //vege:
+
+
+
+
+STACK 
+ldi a,3
+rol a
+
+
+
+
+
+
+
+
+
+
+
+
+/////////
+
+STACK
+ldi b,22
+push b///betesz a stackbe
+ldi b,11
+pop b //kivesz a stackbõl
+
+
+
+
+
+
+
+
+
+//400+400  fel kell bontani a 400at 2db 8bites számra 1és 144re ez az A és B
+//a:b +c:d
+
+ldi a,  1
+ldi b,  144
+ldi c,  1
+ldi d,  144
+add b,  d// alsó helyiértékek összeadása,ekkor lesz carry
+adc a,  c
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//r4,r5-be a 22 hatványát beírni
+ldi a,22
+
+mul a,a
+mov r4,r1
+mov r5,r0
+
+
+
+//////////////////////////////////////////////////////////////////////////
+
+.

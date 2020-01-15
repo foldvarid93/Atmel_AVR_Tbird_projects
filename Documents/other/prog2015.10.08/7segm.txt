@@ -1,0 +1,114 @@
+.include "m128def.inc"
+
+.def a=r16
+.def b=r17
+.def bit=r18
+.def d=r19
+.def e=r20
+.def f=r21
+
+.macro stack_init
+ldi a,HIGH(RAMEND)
+out sph,a
+ldi a,LOW(RAMEND)
+out spl,a
+.endmacro
+
+.macro port_init	
+ldi a,0
+sts DDRG,a
+ldi a,0xFF
+out DDRA,a
+.endmacro
+
+.org 0x00
+rjmp init
+.org 0x100
+init:
+port_init
+stack_init
+ldi 	bit,	0b00110000 ;itt adom meg melyikre tegye ki 0  _ _ _ 0000
+			   ;                             ENAB x x x 0000
+rjmp menu
+
+
+menu:
+
+eor 	b,b
+lds 	b,	PING
+cpi 	b,	1
+breq 	g0
+cpi 	b,	2
+breq 	g1
+cpi 	b,	4
+breq 	g2
+cpi 	b,	8
+breq 	g3
+rjmp menu
+
+
+g0:
+call segm
+rjmp menu
+
+
+
+g1:
+call segm
+rjmp menu
+
+
+g2:
+ldi	b,	3
+call	segm
+rjmp menu
+
+g3:
+ldi	b,	4
+call	segm
+rjmp menu
+
+
+segm:
+ori	b,	0b10000000;VAGY-olom az engedélyezõvel
+or	b,	bit		  ;VAGY-olom a BITtel amiben megadtam hova tegye ki
+out	PORTA,	b
+ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

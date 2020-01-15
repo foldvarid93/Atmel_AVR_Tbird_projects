@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.41</VERSION>
+ <DEVICE>ATmega128</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\student\Dokumentumok\tp\2</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <init><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>17</LINE></init>
+  <main><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>38</LINE></main>
+  <loop><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>44</LINE></loop>
+  <k0pressed><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>71</LINE></k0pressed>
+  <k1pressed><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>84</LINE></k1pressed>
+  <show7><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>96</LINE></show7>
+  <state0><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>61</LINE></state0>
+  <state1><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>65</LINE></state1>
+  <back><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>57</LINE></back>
+  <delay><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>129</LINE></delay>
+  <delay_loop><FILE>C:\Documents and Settings\student\Dokumentumok\tp\2\2.asm</FILE><LINE>137</LINE></delay_loop>
+ </LABELS>
+</ASSEMBLER_INFO>

@@ -1,0 +1,180 @@
+/*
+TCNT2=ebben van a timer értéke(255ig számol,majd 0!)
+midnen olyan változót aminek az értékét interrupt rutinnal módosítunk,globális volatileként hozzuk létre
+ergo volatile bármikor megváltozhat,a c fordító ezt nem fogja konstansnak tekinteni,nem piszkálja,ne optimalizáljon
+
+*/
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#define BASICDELAY 15
+
+volatile unsigned char cnt=15,leds=0,points=0;
+void init();
+
+void init()
+{
+	DDRG &=0;
+	DDRA=255;
+	DDRD|=0xF0;
+	DDRB|=0xF0;
+
+	TCCR0=0b111;// TIMER0 1024 prescaler
+	TCCR2=0b101;
+	OCR0=128;	//COMPARE0
+	OCR2=128;	//COMPARE2
+
+	TIMSK=0b11000011;
+	sei();
+}
+
+void showleds(unsigned char input)
+{
+	unsigned char left,right;
+
+	right=input << 4;
+	left =input & 0xf0;
+	PORTB=right;
+	PORTD=left;
+
+
+}
+
+
+int main()
+{
+	init();
+
+	while(1)
+	{
+		
+
+	}
+
+return (0);
+}
+
+ISR (TIMER0_OVF_vect) //ISR(interrupt service rutin)-bõl tudja h interrupt,zárójelben h melyik
+{
+static unsigned char digit=0;
+
+	if(digit)
+	{
+		PORTA=0b10010000 | (points/10);
+		digit=0;
+
+	}
+	else
+	{
+		PORTA=0b10000000 | (points%10);
+		digit=1;
+	}
+	
+	
+}
+
+ISR (TIMER0_COMP_vect) 
+{
+	
+	
+	
+	
+}
+
+ISR (TIMER2_OVF_vect) 
+{
+	unsigned char buttons;
+	static unsigned char pressed=0;
+	buttons=PING;
+	if(buttons && !pressed)
+	{
+		
+		pressed=1;
+		if(buttons==leds)
+		{
+			if(points <99) points++;
+		}
+		else
+		{
+			if(points!=0)points--;
+		
+		}
+	}
+	else if(!buttons && pressed)
+	{
+		pressed=0;
+
+	}
+	
+	
+	
+}
+
+ISR (TIMER2_COMP_vect) //Ha nem írok bele semmit crashel a prog,de ISR(BADISR_vect)-ral nem visít
+{
+	static unsigned char cnt=BASICDELAY;
+	// static unsigned char leds=1;
+
+	if(cnt>0)
+	{
+		cnt--;
+	}
+	else
+	{
+		if(points <= BASICDELAY)
+			cnt = BASICDELAY-points;
+		else
+			cnt=0;
+		
+		leds<<=1;
+		if(!leds) leds=1;
+		showleds(leds);
+	}
+	
+	
+	
+}
+
+ISR(BADISR_vect)//ez a vektor hívódik meg ha valamelyik interrupt hívódik meg amibe nincs semmi írva
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+

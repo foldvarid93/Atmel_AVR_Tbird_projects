@@ -1,0 +1,87 @@
+az aled világít amelyik gombot nyomom
+
+
+
+.include "m128def.inc"
+
+.def a=r16
+.def b=r17
+.def c=r18
+.def d=r19
+.def e=r20
+
+.macro stack_init
+ldi 	a,	high(ramend)
+out 	sph,	a
+ldi 	a,	low(ramend)
+out 	spl,	a
+.endmacro
+
+.macro port_init
+ldi 	a,	0
+sts 	DDRG,	a
+ldi 	a,	0xF0
+out 	DDRD,	a
+out 	DDRB,	a
+.endmacro
+
+.org 0x00
+rjmp start
+.org 0x100
+
+start:
+stack_init
+port_init
+eor	a,	a
+lds	a,	PING     ///portról adatot eltárolni LDS-sel
+call	kitesz
+rjmp	start
+
+kitesz:
+out	PORTD,	a
+swap	a
+out	PORTB,	a
+swap	a
+ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

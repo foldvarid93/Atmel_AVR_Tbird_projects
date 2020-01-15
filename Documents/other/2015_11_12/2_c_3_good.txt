@@ -1,0 +1,59 @@
+#include <avr/io.h>
+#define F_CPU 16000000UL
+#include <util/delay.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define del (5)
+
+void init();
+void schrodinger(int negyjegy);
+
+void init()
+	{
+		DDRB=	0xF0;
+		DDRD=	0xF0;
+		DDRG=	0;
+		DDRA=	0b11111111;
+	}
+
+int main()
+{	
+	init();	
+	int szam=6415;
+	schrodinger(szam);	
+
+return 0;
+}
+
+void schrodinger(int negyjegy)
+{
+	int seged=0;
+	while(1)
+	{
+		seged=negyjegy;
+		seged=(seged/1000);
+		PORTA=(0b10110000|seged);
+		_delay_ms(del);
+
+		seged=((negyjegy/100)%10);
+		PORTA=(0b10100000|seged);
+		_delay_ms(del);
+
+		seged=((negyjegy/10)%10);
+		PORTA=(0b10010000|seged);
+		_delay_ms(del);
+
+		seged=(negyjegy%10);
+		PORTA=(0b10000000|seged);
+		_delay_ms(del);
+
+
+
+	}
+			
+		
+}
+
+
+

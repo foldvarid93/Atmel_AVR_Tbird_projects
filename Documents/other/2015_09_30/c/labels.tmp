@@ -1,0 +1,30 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.41</VERSION>
+ <DEVICE>ATmega128</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\student\Dokumentumok\c</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\student\Dokumentumok\c\c.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\student\Dokumentumok\c\c.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\student\Dokumentumok\c\c.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>33</LINE></start>
+  <menu><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>39</LINE></menu>
+  <red><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>52</LINE></red>
+  <green><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>59</LINE></green>
+  <blue><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>65</LINE></blue>
+  <RB><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>77</LINE></RB>
+  <kitesz><FILE>C:\Documents and Settings\student\Dokumentumok\c\c.asm</FILE><LINE>70</LINE></kitesz>
+ </LABELS>
+</ASSEMBLER_INFO>

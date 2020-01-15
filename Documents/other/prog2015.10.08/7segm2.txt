@@ -1,0 +1,153 @@
+
+;g0-ra utolsón 16/5 maradéka jelenik meg
+;g1-re az elsõ 2 szegmensen 1 jelenik meg
+
+
+
+
+
+
+
+.include "m128def.inc"
+
+.def a=r16
+.def b=r17
+.def bit=r18
+.def c=r19
+.def d=r20
+.def e=r21
+.def f=r22
+
+.macro stack_init
+ldi a,HIGH(RAMEND)
+out sph,a
+ldi a,LOW(RAMEND)
+out spl,a
+.endmacro
+
+.macro port_init	
+ldi a,0
+sts DDRG,a
+ldi a,0xFF
+out DDRA,a
+.endmacro
+
+.org 0x00
+rjmp init
+.org 0x100
+init:
+port_init
+stack_init
+//ldi 	bit,	0b00110000 ;itt adom meg melyikre tegye ki 0  _ _ _ 0000
+			   ;                             ENAB x x x 0000
+rjmp menu
+
+
+menu:
+
+
+ldi c,16
+ldi d,5
+kiv:
+sub c,d
+brmi nega
+rjmp kiv
+
+nega:
+add c,d
+
+
+
+
+
+eor 	b,b
+lds 	b,	PING
+cpi 	b,	1
+breq 	g0
+cpi 	b,	2
+breq 	g1
+
+
+rjmp menu
+
+
+g0:
+call segm
+rjmp menu
+
+
+
+g1:
+call segm2
+//call delay
+call segm3
+lds 	b,	PING
+cpi b,1
+breq g0
+rjmp g1
+
+
+
+
+segm:
+ori	b,	0b10000000
+ori	b,	0b00110000
+or	b,	c
+out	PORTA,	b
+ret
+
+segm2:
+ldi b,0
+ori	b,	0b10000000
+ori	b,	0b00000000
+or	b,	c
+out	PORTA,	b
+ret
+
+segm3:
+ldi b,0
+ori	b,	0b10000000
+ori	b,	0b00010000
+or	b,	c
+out	PORTA,	b
+ret
+
+
+delay:
+
+ldi e,255
+d0:
+dec e
+brne d0
+ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

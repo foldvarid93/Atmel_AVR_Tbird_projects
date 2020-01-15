@@ -1,0 +1,264 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#define  F_CPU (8000000UL)
+
+
+volatile unsigned int cnt=0,leds=1,rgb=0;
+unsigned char ready=0,readyup=0,ready3=0,szin[8]={4,1,2,3,4,5,6,7};
+int szam=0;
+volatile int delay=0;
+
+void seg_out(unsigned int cnt);
+void led_out(unsigned int leds);
+void rgb_out(unsigned int rgb);
+void feltolt(unsigned char szin[],int szam);
+void select(unsigned char szin[],int szam,int a);
+void rgbledfgv(unsigned char rgbled);
+
+
+void init()
+{
+	DDRA=255;
+	DDRD=0xF0;
+	DDRB=0xF0;
+	DDRC=128;
+	DDRE=12;
+	DDRG=0;
+
+	TIMSK=0b11000011;
+
+	TCCR0=0b00000111;
+	TCCR2=0b00000001;
+	OCR2=128;
+	sei();
+}
+
+
+int main()
+{
+	unsigned char button=0,pressed=0;
+
+	init();
+//	feltolt(szin,szam);
+	while(1)
+	{
+		button=PING;
+		
+		if(button==0) pressed=0;
+
+		if((button==1) && (pressed==0))
+			{	
+				pressed=1;
+				OCR2-=20;
+				if(OCR2<=8) OCR2=28;
+				ready=0;
+
+			} 
+		if((button==2) && (pressed==0))
+			{	
+				pressed=1;
+				OCR2+=20;
+				if(OCR2>=248) OCR2=228;
+				ready=0;
+
+			} 
+		if(button==4)
+			{
+				ready=1;
+
+			}
+
+
+		if(button==8)
+			{
+				ready3=1;
+				select(szin,szam,delay);
+			}
+	
+		seg_out(cnt);
+		led_out(leds);
+		rgb_out(rgb);
+	}
+
+
+
+
+
+}
+
+
+
+ISR(TIMER0_OVF_vect)
+{
+	delay++;
+	cnt++;
+	leds<<=1;
+	if(cnt==10000) cnt=0;
+	if(leds==256)   leds=1;
+
+	//RGB áttûnés
+	if((ready==1) && (readyup==0))
+	{
+		OCR2--;
+			if(OCR2==1) readyup=1;
+				
+	}
+	if(readyup==1)OCR2++;
+	if(OCR2==254) readyup=0;
+//-----------------------------------------------------------------------------------	
+	if(ready3==1)
+		{
+			
+
+
+
+		}
+	
+
+
+
+
+}
+
+
+ISR(TIMER0_COMP_vect)
+{
+}
+
+
+
+ISR(TIMER2_OVF_vect)
+{
+	rgb=0b10001100;
+}
+
+
+
+ISR(TIMER2_COMP_vect)
+{
+	rgb=0;
+
+}
+
+
+
+
+void seg_out(unsigned int cnt)
+{
+	int tmp;
+	tmp=cnt;
+
+	//1.digit
+	PORTA=(0b10000000 | (tmp%10));
+	
+	//1.digit
+	PORTA=(0b10010000 | ((tmp/10)%10));
+
+	//1.digit
+	PORTA=(0b10100000 | ((tmp/100)%10));
+
+	//1.digit
+	PORTA=(0b10110000 | (tmp/1000));
+
+
+}
+
+void led_out(unsigned int leds)
+{
+	PORTD=leds;
+	PORTB=(leds<<4);
+
+
+
+}
+
+void rgb_out(unsigned int rgb)
+{
+	PORTC=rgb;
+	PORTE=rgb;
+	
+
+}
+/*
+
+void feltolt(unsigned char szin[],int szam) //SZÍN TÖMB feltöltése 8 kombinációval
+{
+	//int szam;
+	int n=0;
+
+	while(n<=8)
+		{
+			szin[n]=szam;
+			szam++;
+			n++;
+			
+		}
+}
+*/
+
+void select(unsigned char szin[],int szam, int a)
+{
+	unsigned char r=0,g=0,b=0,rgbled=0,button=0;
+	int n=0;
+	int tmp=0;
+	while(1)
+	{
+		button=PING;
+		if(button==16) break;
+		
+		
+		tmp=szin[n];
+		if((tmp-4)>=0)
+			{
+				r=0b10000000;  // van piros
+				tmp-=4;
+
+			}
+		if((tmp-2)>=0)
+			{
+				tmp-=2;
+				g=0b00001000;	//van zöld
+			}
+
+		if(((tmp-1)>=0))
+			{
+				b=0b00000100; // van kék
+
+			}
+		
+		rgbled=(r + g + b);
+		r=0,g=0,b=0;
+		rgbledfgv(rgbled);
+		
+		if(delay>=5) 
+			{
+				n++;
+				delay=0;
+				//while(1)
+				//{
+				//}
+			}		
+			if (n>=8) n=0;
+
+	}
+
+} 
+
+void rgbledfgv(unsigned char rgbled)
+{
+
+		PORTC=rgbled;
+		PORTE=rgbled;
+}
+
+
+
+
+
+
+
+
+
+
+
+

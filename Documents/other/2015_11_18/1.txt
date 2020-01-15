@@ -1,0 +1,160 @@
+// int i=1....while(i) és nincs i a ciklusban akkor azt while(1)nek veszi,ha van volatile int i akkor nem tekinti 1nek mert nem tudható h egy interrupt vagy bármi nem e megváltoztatja majd.
+//kitöltési tényezõ állítás ellenütemben,RED változóval lehet állítani!
+//ISR()     megszakítás kezelés
+//TCCR0->elõosztó mint assemblyben
+//OCR0 ->komparlási szint beállítása
+
+
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#define F_CPU 8000000UL
+#include <util/delay.h>
+
+volatile int state=0;  //VOLATILE->interrupthoz kell,ennek a memórai foglalását nem változtatja,így ez folyamatosan elérhetõ
+
+
+int main()
+{
+
+	init();
+	int red=250,blue=0;
+	blue=250-red;
+	while(1)
+	{
+		state=1;
+		OCR0=red;
+		state=2;
+		OCR0=blue;
+
+
+
+	}
+	
+	return 0;
+}
+
+
+void init()
+{
+
+	DDRC=128;
+	DDRE=0x04;
+	TCCR0=5;
+	TIMSK=3;
+	sei();
+
+
+
+}
+
+
+ISR(TIMER0_OVF_vect)
+{
+
+	PORTC=0;
+	PORTE=0;
+
+}
+
+
+ISR(TIMER0_COMP_vect)
+{
+	if(state==1)
+	{
+		PORTC=128;
+	}	
+	if(state==2)
+	{
+		PORTE=4;
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

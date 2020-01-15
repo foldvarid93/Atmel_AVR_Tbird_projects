@@ -1,0 +1,30 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.41</VERSION>
+ <DEVICE>ATmega128</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\student\Asztal\xx\2</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\student\Asztal\xx\2\2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\student\Asztal\xx\2\2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\student\Asztal\xx\2\2.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>35</LINE></start>
+  <elso><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>54</LINE></elso>
+  <masodik><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>57</LINE></masodik>
+  <harmadik><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>59</LINE></harmadik>
+  <negyedik><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>76</LINE></negyedik>
+  <egesz><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>66</LINE></egesz>
+  <marad><FILE>C:\Documents and Settings\student\Asztal\xx\2\2.asm</FILE><LINE>69</LINE></marad>
+ </LABELS>
+</ASSEMBLER_INFO>

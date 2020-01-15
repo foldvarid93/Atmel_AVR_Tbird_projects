@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.41</VERSION>
+ <DEVICE>ATmega128</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\student\Asztal\xx\feladat201</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</FILE><LINE>51</LINE></start>
+  <LED_out><FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</FILE><LINE>22</LINE></LED_out>
+  <LED_running><FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</FILE><LINE>31</LINE></LED_running>
+  <delay_1s><FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</FILE><LINE>37</LINE></delay_1s>
+  <vissza><FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</FILE><LINE>41</LINE></vissza>
+  <start1><FILE>C:\Documents and Settings\student\Asztal\xx\feladat201\feladat201.asm</FILE><LINE>57</LINE></start1>
+ </LABELS>
+</ASSEMBLER_INFO>

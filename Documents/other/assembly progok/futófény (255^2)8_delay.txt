@@ -1,0 +1,145 @@
+g3,g4,re fut
+
+
+
+.include "m128def.inc"
+
+
+.def a=r16
+.def b=r17
+.def c=r18
+.def d=r19
+.def e=r20
+.def f=r21
+.def g=r22
+
+
+
+
+.macro stack_init
+ldi 	a,	high(ramend)
+out 	sph,	a
+ldi 	a,	low(ramend)
+out 	spl,	a
+.endmacro
+
+.macro port_init
+ldi 	a,	0
+sts 	DDRG,	a
+ldi 	a,	0xF0
+out 	DDRD,	a
+out 	DDRB,	a
+.endmacro
+
+.org 0x00
+rjmp start
+.org 0x100
+
+start:
+stack_init
+port_init
+eor	a,	a
+lds	a,	PING     ///portról adatot eltárolni LDS-sel
+cpi	a,	1
+breq	g0
+cpi	a,	2
+breq	g1
+cpi a,4
+breq g2
+cpi a,8
+breq g3
+
+main:
+call	kitesz
+rjmp	start
+
+g0:
+ldi a,255
+rjmp main
+
+g1:
+ldi b,10
+ldi c,5
+mul b,b
+mov a,r0
+add a,c
+rjmp main
+
+g2:
+clc ///carry kiszedése
+ldi a,1
+bal:
+call delay
+call kitesz
+rol a
+brcs g2 //carry 1 akkor jmp
+rjmp bal
+
+
+kitesz:
+out	PORTD,	a
+swap	a
+out	PORTB,	a
+swap	a
+ret
+
+
+delay:///Késleltetés beállítása
+ldi 	d,8
+d1:
+ldi 	e,255
+d2:
+ldi 	f,255
+d3:
+dec 	f
+brne 	d3
+dec 	e
+brne 	d2
+dec 	d
+brne 	d1
+ret
+
+
+g3:
+clc 
+ldi a,128
+jobb:
+call delay
+call kitesz
+ror a
+brcs g3
+rjmp jobb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

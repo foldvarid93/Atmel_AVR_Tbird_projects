@@ -1,0 +1,105 @@
+;g0 RED
+;g1 GREEN
+;g2 BLUE
+;g3 ALL
+
+
+
+.include "m128def.inc"
+
+.def a=r16
+.def b=r17
+.def c=r18
+.def d=r19
+.def e=r20
+.def f=r21
+
+.macro stack_init
+ldi a,HIGH(RAMEND)
+out sph,a
+ldi a,LOW(RAMEND)
+out spl,a
+.endmacro
+
+.macro port_init	
+ldi a,0
+sts DDRG,a
+ldi a,0b10000000
+out DDRC,a
+ldi a,0b00001100
+out DDRE,a
+.endmacro
+
+.org 0x00
+rjmp init
+.org 0x100
+init:
+port_init
+stack_init
+rjmp start
+null:
+eor b,b
+
+start:
+
+lds a,ping
+cpi a,1
+breq g0
+cpi a,2
+breq g1
+cpi a,4
+breq g2
+cpi a,8
+breq g3
+rjmp start
+
+g0:
+
+ldi b,0b10000000
+call rgb
+rjmp null
+
+g1:
+
+ldi b,0b00001000
+call rgb
+rjmp null
+
+g2:
+ldi b,0b00000100
+call rgb
+rjmp null
+
+g3:
+ldi b,0b10001100
+call rgb
+rjmp start
+
+rgb:
+out portc,b
+out porte,b
+ret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
